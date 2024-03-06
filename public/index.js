@@ -22864,10 +22864,14 @@ var sketch = function(p) {
     Matter.Runner.run(runner, engine);
     p.background("black");
     p.textFont(p.loadFont("fonts/MonaspaceRadon-Regular.otf"));
-    setInterval(() => {
+    const interval = setInterval(() => {
       const word = createWord();
       Matter.Composite.add(engine.world, word.body);
       words.push(word);
+      if (words.length === 100) {
+        clearInterval(interval);
+        engine.gravity.scale = -0.00001;
+      }
     }, p.random(200, 500));
   };
   p.draw = function() {

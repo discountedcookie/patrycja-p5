@@ -50,10 +50,15 @@ const sketch = function (p: p5) {
         p.textFont(p.loadFont('fonts/MonaspaceRadon-Regular.otf'));
 
         // Schedule a new word to be added
-        setInterval(() => {
+        const interval = setInterval(() => {
             const word = createWord();
             Matter.Composite.add(engine.world, word.body);
             words.push(word)
+
+            if (words.length === 100) {
+                clearInterval(interval)
+                engine.gravity.scale = -0.00001
+            }
         }, p.random(200, 500));
     };
 
