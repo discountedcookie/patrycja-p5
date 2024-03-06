@@ -29,10 +29,10 @@ const sketch = function (p: p5) {
 
         const text = p.random(availableWords);
         const height = p.random(p.height / 20, p.height / 40);
-        const width = height / 1.6 * text.length;
+        const width = p.textWidth(text) * (height / 12.75);
 
         return {
-            body: Matter.Bodies.rectangle(x, y, width, height, { angle: p.random(-0.35, 0.35) }),
+            body: Matter.Bodies.rectangle(x, y, width, height, { angle: p.random(-0.2, 0.2), mass: (height * width) / 5000 }),
             width,
             height,
             text,
@@ -47,7 +47,6 @@ const sketch = function (p: p5) {
         Matter.Runner.run(runner, engine);
 
         p.background("black");
-        p.textFont(p.loadFont('fonts/MonaspaceRadon-Regular.otf'));
 
         // Schedule a new word to be added
         const interval = setInterval(() => {
@@ -55,7 +54,7 @@ const sketch = function (p: p5) {
             Matter.Composite.add(engine.world, word.body);
             words.push(word)
 
-            if (words.length === 100) {
+            if (words.length === 50) {
                 clearInterval(interval)
                 engine.gravity.scale = -0.00001
             }
@@ -69,10 +68,10 @@ const sketch = function (p: p5) {
         // Update the physics engine
         Matter.Engine.update(engine);
 
-        // Render the ground
+        // Render the ground and its sides
         p.fill("black");
         p.rectMode(p.CENTER);
-        p.rect(boxBottom!.position.x, boxBottom!.position.y, p.windowWidth, 10);
+        p.rect(boxBottom!.position.x, boxBottom!.position.y, p.width, 10);
 
         // Render all words
         p.fill("white");
@@ -83,9 +82,8 @@ const sketch = function (p: p5) {
             p.translate(word.body.position.x, word.body.position.y);
             p.rotate(word.body.angle);
 
-            // p.rect(0, 0, word.width, word.height);
             p.textSize(word.height);
-            p.text(word.text, 0, word.height * 0.85, word.width, word.height);
+            p.text(word.text, word.width / -2, word.height / 3);
 
             p.pop();
         });
