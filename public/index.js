@@ -22847,12 +22847,12 @@ var sketch = function(p) {
   function createWord() {
     engine.gravity.scale = p.random(0.0005, 0.001);
     const x = p.random(0, p.width);
-    const y = p.random(0, p.height / 3);
+    const y = p.random(-100, 0);
     const text = p.random(availableWords);
     const height = p.random(p.height / 20, p.height / 40);
     const width = height / 1.6 * text.length;
     return {
-      body: Matter.Bodies.rectangle(x, y, width, height),
+      body: Matter.Bodies.rectangle(x, y, width, height, { angle: p.random(-0.35, 0.35) }),
       width,
       height,
       text
