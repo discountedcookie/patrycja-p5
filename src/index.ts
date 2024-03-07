@@ -49,7 +49,7 @@ const elements: Element[] = [];
 function addElement() {
     const x = 100;
     const y = 100;
-    const width = p5.prototype.random(20, 60);
+    const width = p5.prototype.random(10, 40);
     const height = 50;
 
     const element = {
@@ -73,17 +73,17 @@ onUpdateListeners.push(() => {
 })
 
 window.addEventListener('click', () => {
-    setInterval(addElement, p5.prototype.random(32, 200));
+    setInterval(addElement, p5.prototype.random(32, 150));
 })
 
 //
 
-const render = Matter.Render.create({
-    canvas: document.querySelector('#matter'),
-    engine,
-    options: {
-        height: window.innerHeight,
-        width: window.innerWidth,
-    }
-});
-Matter.Render.run(render);
+// const render = Matter.Render.create({
+//     canvas: document.querySelector('#matter'),
+//     engine,
+//     options: {
+//         height: window.innerHeight,
+//         width: window.innerWidth,
+//     }
+// });
+// Matter.Render.run(render);

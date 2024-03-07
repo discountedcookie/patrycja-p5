@@ -33181,7 +33181,7 @@ var update = function() {
 var addElement = function() {
   const x = 100;
   const y = 100;
-  const width = import_p5.default.prototype.random(20, 60);
+  const width = import_p5.default.prototype.random(10, 40);
   const height = 50;
   const element = {
     body: Matter.Bodies.circle(x, y, width),
@@ -33218,14 +33218,5 @@ onUpdateListeners.push(() => {
   elements.forEach(updateElement);
 });
 window.addEventListener("click", () => {
-  setInterval(addElement, import_p5.default.prototype.random(32, 200));
+  setInterval(addElement, import_p5.default.prototype.random(32, 150));
 });
-var render = Matter.Render.create({
-  canvas: document.querySelector("#matter"),
-  engine,
-  options: {
-    height: window.innerHeight,
-    width: window.innerWidth
-  }
-});
-Matter.Render.run(render);
