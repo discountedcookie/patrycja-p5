@@ -22837,6 +22837,14 @@ var sketch = function(p) {
   const engine = Matter.Engine.create({
     gravity: { y: 0 }
   });
+  const render = Matter.Render.create({
+    canvas: document.querySelector("#matter"),
+    engine,
+    options: {
+      height: p.windowHeight,
+      width: p.windowWidth
+    }
+  });
   const runner = Matter.Runner.create();
   const shapes = [];
   const onDrawListeners = [
@@ -22848,7 +22856,6 @@ var sketch = function(p) {
       p.fill("white");
     },
     () => {
-      shapes.forEach(renderShape);
     }
   ];
   function addShape(shape) {
@@ -22881,7 +22888,7 @@ var sketch = function(p) {
   const textSize = 30;
   const letters = [];
   function makeItFall() {
-    engine.gravity.y = 0.1;
+    engine.gravity.y = 0.15;
     letters.forEach((letter) => {
       Matter.Body.applyForce(letter.body, { x: p.random(0, p.width), y: p.height / 2 }, { x: p.random(0.0001, 0.001), y: p.random(0.0001, 0.001) });
     });
@@ -22925,7 +22932,7 @@ var sketch = function(p) {
         return;
       }
       nextLetter();
-    }, 32);
+    }, 16);
   }
   function nextLetter() {
     if (letters.length === sketchText.length) {
@@ -22957,6 +22964,11 @@ var sketch = function(p) {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.textSize(textSize);
     p.createButton("click").position(10, 10).mousePressed(writeText);
+    p.createButton("debug").position(50, 10).mousePressed(() => {
+      const m = document.querySelector("#matter");
+      m.style.opacity = m.style.opacity === "1" ? "0" : "1";
+    });
+    Matter.Render.run(render);
     Matter.Runner.run(runner, engine);
   };
   p.draw = function() {
