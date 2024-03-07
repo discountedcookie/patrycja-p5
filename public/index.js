@@ -22837,14 +22837,6 @@ var sketch = function(p) {
   const engine = Matter.Engine.create({
     gravity: { y: 0 }
   });
-  const render = Matter.Render.create({
-    canvas: document.querySelector("#matter"),
-    engine,
-    options: {
-      height: p.windowHeight,
-      width: p.windowWidth
-    }
-  });
   const runner = Matter.Runner.create();
   const shapes = [];
   const onDrawListeners = [
@@ -22965,11 +22957,6 @@ var sketch = function(p) {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.textSize(textSize);
     p.createButton("click").position(10, 10).mousePressed(writeText);
-    p.createButton("debug").position(50, 10).mousePressed(() => {
-      const m = document.querySelector("#matter");
-      m.style.opacity = m.style.opacity === "0.5" ? "0" : "0.5";
-    });
-    Matter.Render.run(render);
     Matter.Runner.run(runner, engine);
   };
   p.draw = function() {

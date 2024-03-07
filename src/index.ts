@@ -20,14 +20,14 @@ const sketch = function (p: p5) {
     const engine = Matter.Engine.create({
         gravity: { y: 0 },
     });
-    const render = Matter.Render.create({
-        canvas: document.querySelector('#matter'),
-        engine,
-        options: {
-            height: p.windowHeight,
-            width: p.windowWidth,
-        }
-    });
+    // const render = Matter.Render.create({
+    //     canvas: document.querySelector('#matter'),
+    //     engine,
+    //     options: {
+    //         height: p.windowHeight,
+    //         width: p.windowWidth,
+    //     }
+    // });
     const runner = Matter.Runner.create();
 
     //
@@ -192,14 +192,14 @@ const sketch = function (p: p5) {
             .position(10, 10)
             .mousePressed(writeText);
 
-        p.createButton("debug")
-            .position(50, 10)
-            .mousePressed(() => {
-                const m = document.querySelector("#matter");
-                m.style.opacity = m.style.opacity === '0.5' ? '0' : '0.5';
-            });
+        // p.createButton("debug")
+        //     .position(50, 10)
+        //     .mousePressed(() => {
+        //         const m = document.querySelector("#matter");
+        //         m.style.opacity = m.style.opacity === '0.5' ? '0' : '0.5';
+        //     });
 
-        Matter.Render.run(render);
+        // Matter.Render.run(render);
         Matter.Runner.run(runner, engine);
     };
 
