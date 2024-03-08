@@ -4,7 +4,13 @@ import p5 from "p5";
 const availableWords = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'exercitation', 'ullamco', 'laboris'];
 
 const sketch = function (p: p5) {
+    const font = p.loadFont('fonts/MonaspaceRadon-Regular.otf');
+
     const engine = Matter.Engine.create({});
+    const render = Matter.Render.create({
+        engine,
+        canvas: document.getElementById("matter"),
+    })
     const runner = Matter.Runner.create({});
 
     const words: { body: Matter.Body, width: number, height: number, text: string }[] = [];
@@ -40,13 +46,15 @@ const sketch = function (p: p5) {
     }
 
     p.setup = function () {
-        p.createCanvas(p.windowWidth, p.windowHeight);
+        p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
 
         // Add the ground and sides of the box to the world
         Matter.Composite.add(engine.world, createBox());
-        Matter.Runner.run(runner, engine);
+        Matter.Render.run(render);
+        // Matter.Runner.run(runner, engine);
 
         p.background("black");
+        p.textFont(font);
 
         // Schedule a new word to be added
         const interval = setInterval(() => {
@@ -58,7 +66,7 @@ const sketch = function (p: p5) {
                 clearInterval(interval)
                 engine.gravity.scale = -0.00001
             }
-        }, p.random(200, 500));
+        }, p.random(20, 100));
     };
 
     p.draw = function () {
@@ -68,7 +76,7 @@ const sketch = function (p: p5) {
         // Update the physics engine
         Matter.Engine.update(engine);
 
-        // Render the ground and its sides
+        // // Render the ground and its sides
         p.fill("black");
         p.rectMode(p.CENTER);
         p.rect(boxBottom!.position.x, boxBottom!.position.y, p.width, 10);

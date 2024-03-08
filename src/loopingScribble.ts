@@ -25,7 +25,6 @@ export function start() {
     function addPoint() {
         const index = curve.vertices.length - 1;
         const loopIndex = Math.floor(index / loopResolution);
-        console.log(loopIndex, index);
 
         const angle = ((index % loopResolution) / loopResolution * Math.PI * 2) + getRandomVariance(maxAngleVariance);
         const radius = loopRadius + getRandomVariance(maxRadiusVariance);
@@ -43,7 +42,7 @@ export function start() {
         } else if (pointsDrawn < loopsNum * loopResolution) {
             addPoint();
         } else {
-            // curve.vertices.splice(0, 1);
+
         }
     })
 }

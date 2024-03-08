@@ -1,8 +1,14 @@
 import * as Matter from "matter-js";
-import p5 from "p5";
+import Two from "two.js";
 
 export const engine = Matter.Engine.create({ gravity: { y: 0 } });
 export const runner = Matter.Runner.create();
+
+export const two = new Two({
+    autostart: false,
+    fullscreen: true,
+    type: Two.Types.webgl,
+})
 
 const updateListeners: (() => void)[] = [];
 
@@ -15,13 +21,13 @@ function update() {
     updateListeners.forEach((fn) => fn());
 }
 
-type View = {
-    start: (p: p5) => void
-}
+two!.appendTo(document.body);
+two!.bind('update', update);
 
 export default {
-    init: (view: View) => {
+    init: () => {
         Matter.Composite.clear(engine.world, false);
-        new p5(view.start)
+        two.clear();
+        two.play();
     }
 }
