@@ -15038,13 +15038,13 @@ __export(exports_looping, {
 });
 function start() {
   const center = { x: two.width / 2, y: two.height / 2 };
-  const loopsNum = 200;
+  const loopsNum = 100;
   const loopRadius = Math.min(two.width, two.height) / 1.5;
   const loopResolution = 6;
   const maxAngleVariance = 0.3;
   const maxCenterVariance = 30;
   const maxRadiusVariance = 30;
-  const curve = two.makeCurve([new Two.Anchor(0, 0)], true);
+  const curve = two.makeCurve([new Two.Anchor(two.width / 2, two.height / 2)], true);
   curve.stroke = "white";
   curve.noFill();
   function addPoint() {
@@ -15058,7 +15058,7 @@ function start() {
     const radius = loopRadius + getRandomVariance(maxRadiusVariance);
     const x = center.x + getRandomVariance(maxCenterVariance) + radius * Math.cos(angle) * (two.width / two.height);
     const y = center.y + getRandomVariance(maxCenterVariance) + radius * Math.sin(angle);
-    curve.vertices.splice(0, 0, new Two.Anchor(x, y));
+    curve.vertices.splice(0, 0, new Two.Anchor(x - two.width / 2, y - two.height / 2));
   }
   onUpdate(() => {
     addPoint();
