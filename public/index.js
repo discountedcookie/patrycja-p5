@@ -15038,12 +15038,12 @@ __export(exports_looping, {
 });
 function start() {
   const center = { x: two.width / 2, y: two.height / 2 };
-  const loopsNum = 1000;
-  const loopRadius = Math.min(two.width, two.height) / 4;
-  const loopResolution = 4;
+  const loopsNum = 200;
+  const loopRadius = Math.min(two.width, two.height) / 1.5;
+  const loopResolution = 6;
   const maxAngleVariance = 0.3;
-  const maxCenterVariance = 50;
-  const maxRadiusVariance = 50;
+  const maxCenterVariance = 30;
+  const maxRadiusVariance = 30;
   const curve = two.makeCurve([new Two.Anchor(0, 0)], true);
   curve.stroke = "white";
   curve.noFill();
@@ -15061,7 +15061,6 @@ function start() {
     curve.vertices.splice(0, 0, new Two.Anchor(x, y));
   }
   onUpdate(() => {
-    addPoint();
     addPoint();
   });
 }
