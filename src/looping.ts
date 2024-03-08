@@ -8,9 +8,9 @@ function getRandomVariance(maxVariance) {
 export function start() {
     const center = { x: two.width / 2, y: two.height / 2 };
 
-    const loopsNum = 150;
+    const loopsNum = 100;
 
-    const loopRadius = Math.min(two.width, two.height) / 1.5;
+    const loopRadius = Math.min(two.width, two.height) / 3.5;
     const loopResolution = 6;
     const maxAngleVariance = 0.3;
     const maxCenterVariance = 20;
@@ -20,11 +20,9 @@ export function start() {
     curve.stroke = 'white';
     curve.noFill();
 
-    function addPoint() {
-        if (curve.vertices.length === loopsNum * loopResolution) {
-            return;
-        }
+    let pointsDrawn = 0;
 
+    function addPoint() {
         const index = curve.vertices.length - 1;
         const loopIndex = Math.floor(index / loopResolution);
         console.log(loopIndex, index);
@@ -35,10 +33,17 @@ export function start() {
         const y = center.y + getRandomVariance(maxCenterVariance) + radius * Math.sin(angle);
 
         curve.vertices.splice(0, 0, new Two.Anchor(x - (two.width / 2), y - (two.height / 2)))
+        pointsDrawn++;
     }
 
     onUpdate(() => {
-        addPoint();
-        addPoint();
+        if (pointsDrawn === 0) {
+            addPoint();
+            curve.vertices.splice(1, 1);
+        } else if (pointsDrawn < loopsNum * loopResolution) {
+            addPoint();
+        } else {
+            // curve.vertices.splice(0, 1);
+        }
     })
 }
