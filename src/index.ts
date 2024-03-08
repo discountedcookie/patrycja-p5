@@ -2,7 +2,7 @@ import canvas from './canvas'
 
 const views = {
     // threeLayers: import('./threeLayers'),
-    looping: import('./looping'),
+    loopingScribble: import('./loopingScribble'),
 }
 
 async function selectView(view: keyof typeof views) {
@@ -24,4 +24,4 @@ selectEl?.addEventListener('change', (event) => {
     selectView(event.target.value);
 })
 
-selectView('looping');
+selectView('loopingScribble');

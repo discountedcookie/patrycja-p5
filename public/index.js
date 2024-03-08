@@ -15027,9 +15027,9 @@ var init_canvas = __esm(() => {
   };
 });
 
-// src/looping.ts
-var exports_looping = {};
-__export(exports_looping, {
+// src/loopingScribble.ts
+var exports_loopingScribble = {};
+__export(exports_loopingScribble, {
   start: () => {
     {
       return start;
@@ -15070,7 +15070,7 @@ function start() {
   });
 }
 var getRandomVariance;
-var init_looping = __esm(() => {
+var init_loopingScribble = __esm(() => {
   init_two_module();
   init_canvas();
   getRandomVariance = function(maxVariance) {
@@ -15086,7 +15086,7 @@ async function selectView(view) {
   (await views[view]).start();
 }
 var views = {
-  looping: Promise.resolve().then(() => (init_looping(), exports_looping))
+  loopingScribble: Promise.resolve().then(() => (init_loopingScribble(), exports_loopingScribble))
 };
 var selectEl = document.getElementById("select");
 Object.keys(views).forEach((view) => {
@@ -15097,4 +15097,4 @@ Object.keys(views).forEach((view) => {
 selectEl?.addEventListener("change", (event) => {
   selectView(event.target.value);
 });
-selectView("looping");
+selectView("loopingScribble");
