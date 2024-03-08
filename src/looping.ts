@@ -8,13 +8,13 @@ function getRandomVariance(maxVariance) {
 export function start() {
     const center = { x: two.width / 2, y: two.height / 2 };
 
-    const loopsNum = 100;
+    const loopsNum = 150;
 
     const loopRadius = Math.min(two.width, two.height) / 1.5;
     const loopResolution = 6;
     const maxAngleVariance = 0.3;
-    const maxCenterVariance = 30;
-    const maxRadiusVariance = 30;
+    const maxCenterVariance = 20;
+    const maxRadiusVariance = 50;
 
     const curve = two.makeCurve([new Two.Anchor(two.width / 2, two.height / 2)], true);
     curve.stroke = 'white';
@@ -38,6 +38,7 @@ export function start() {
     }
 
     onUpdate(() => {
+        addPoint();
         addPoint();
     })
 }
